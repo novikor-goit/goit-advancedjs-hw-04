@@ -7,14 +7,14 @@ axios.defaults.params = {
   key: API_KEY,
 };
 
-export default async function getList(query, page) {
+export default async function getList(query, page, pageSize = 15) {
   const response = await axios.get('/', {
     params: {
       q: query,
       page: page,
       image_type: 'photo',
       orientation: 'horizontal',
-      per_page: 15,
+      per_page: pageSize,
       safesearch: true,
     },
   });
@@ -24,5 +24,8 @@ export default async function getList(query, page) {
     );
   }
 
-  return response.data.hits;
+  return {
+    images: response.data.hits,
+    pages: Math.ceil(response.data.totalHits / pageSize),
+  };
 }

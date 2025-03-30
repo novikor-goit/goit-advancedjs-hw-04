@@ -1,7 +1,7 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-import getImages from './js/pixabay-api.js';
+import searchImages from './js/pixabay-api.js';
 import * as renderFunctions from './js/render-functions.js';
 
 const form = document.getElementById('search-form');
@@ -18,21 +18,20 @@ loadMoreButton.addEventListener('click', loadMore);
 async function getImagesWithLoader({ query, page = 1 }, callable) {
   renderFunctions.toggleLoader();
   try {
-    const images = await getImages(query, page);
-    callable(images);
+    const result = await searchImages(query, page);
+    callable(result);
   } catch (e) {
-    loadMoreButton.hidden = true;
     iziToast.error({ message: e.message });
-    console.error(e);
+    throw e;
   } finally {
     renderFunctions.toggleLoader();
   }
 }
 
 async function search(query) {
-  return getImagesWithLoader({ query }, images => {
+  return getImagesWithLoader({ query }, ({ images, pages }) => {
     renderFunctions.renderSearchResults(images);
-    loadMoreButton.hidden = false;
+    loadMoreButton.hidden = pages <= 1;
     loadMoreButton.dataset.query = query;
     loadMoreButton.dataset.page = String(2);
   });
@@ -42,8 +41,18 @@ async function loadMore() {
   const { query, page } = loadMoreButton.dataset;
   await getImagesWithLoader(
     { query, page: Number(page) },
-    renderFunctions.renderNewPage
-  );
+    ({ images, pages }) => {
+      renderFunctions.renderNewPage(images);
+      const nextPage = Number(page) + 1;
+      loadMoreButton.dataset.page = String(nextPage);
 
-  loadMoreButton.dataset.page = String(Number(page) + 1);
+      console.log(nextPage, pages);
+      if (nextPage > pages) {
+        loadMoreButton.hidden = true;
+        iziToast.info({
+          message: "We're sorry, but you've reached the end of search results.",
+        });
+      }
+    }
+  );
 }

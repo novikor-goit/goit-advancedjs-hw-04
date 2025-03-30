@@ -51,6 +51,12 @@ function renderSearchResults(images) {
 function renderNewPage(images) {
   galleryElement.insertAdjacentHTML('beforeend', getImagesHtml(images));
   gallery.refresh();
+  const anyTile = document.querySelector('li.gallery-item');
+  const doubleHeight = anyTile.getBoundingClientRect().height * 2;
+  window.scrollBy({
+    top: doubleHeight,
+    behavior: 'smooth',
+  });
 }
 
 export { renderSearchResults, renderNewPage, toggleLoader };
