@@ -13,8 +13,8 @@ const gallery = new SimpleLightbox('#gallery a', {
 
 const galleryElement = document.querySelector('#gallery');
 
-function renderImages(images) {
-  galleryElement.innerHTML = images
+function getImagesHtml(images) {
+  return images
     .map(
       image =>
         `<li class="gallery-item">
@@ -40,7 +40,17 @@ function renderImages(images) {
         </li>`
     )
     .join('');
+}
+
+function renderSearchResults(images) {
+  galleryElement.innerHTML = getImagesHtml(images);
+
   gallery.refresh();
 }
 
-export { renderImages, toggleLoader };
+function renderNewPage(images) {
+  galleryElement.insertAdjacentHTML('beforeend', getImagesHtml(images));
+  gallery.refresh();
+}
+
+export { renderSearchResults, renderNewPage, toggleLoader };

@@ -4,7 +4,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homework 3</title>
+    <title>Homework 4</title>
     <link rel="stylesheet" href="css/styles.css" />
   </head>
 
@@ -12,19 +12,24 @@
     <main>
       <section class="container search-container">
         <form id="search-form" class="form">
-          <input
-            type="text"
-            required
-            name="query"
-            placeholder="Search images..."
-          />
+          <label>
+            <input
+              type="text"
+              required
+              name="query"
+              placeholder="Search images..."
+            />
+          </label>
           <button type="submit">Search</button>
         </form>
       </section>
       <div class="container">
-        <span class="loader"></span>
         <section>
           <ul class="gallery" id="gallery"></ul>
+          <div>
+            <button id="load-more" hidden class="load-more">Load more</button>
+          </div>
+          <span class="loader"></span>
         </section>
       </div>
     </main>

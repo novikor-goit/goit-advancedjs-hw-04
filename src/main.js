@@ -4,18 +4,46 @@ import 'izitoast/dist/css/iziToast.min.css';
 import getImages from './js/pixabay-api.js';
 import * as renderFunctions from './js/render-functions.js';
 
-document.getElementById('search-form').addEventListener('submit', event => {
+const form = document.getElementById('search-form');
+const loadMoreButton = document.getElementById('load-more');
+
+form.addEventListener('submit', async event => {
   event.preventDefault();
-  const form = event.target;
-  search(form.elements.query.value).then(() => form.reset());
+  await search(form.elements.query.value);
+  form.reset();
 });
 
-function search(query) {
+loadMoreButton.addEventListener('click', loadMore);
+
+async function getImagesWithLoader({ query, page = 1 }, callable) {
   renderFunctions.toggleLoader();
-  return getImages(query)
-    .then(images => {
-      renderFunctions.renderImages(images);
-    })
-    .catch(error => iziToast.error({ message: error }))
-    .finally(() => renderFunctions.toggleLoader());
+  try {
+    const images = await getImages(query, page);
+    callable(images);
+  } catch (e) {
+    loadMoreButton.hidden = true;
+    iziToast.error({ message: e.message });
+    console.error(e);
+  } finally {
+    renderFunctions.toggleLoader();
+  }
+}
+
+async function search(query) {
+  return getImagesWithLoader({ query }, images => {
+    renderFunctions.renderSearchResults(images);
+    loadMoreButton.hidden = false;
+    loadMoreButton.dataset.query = query;
+    loadMoreButton.dataset.page = String(2);
+  });
+}
+
+async function loadMore() {
+  const { query, page } = loadMoreButton.dataset;
+  await getImagesWithLoader(
+    { query, page: Number(page) },
+    renderFunctions.renderNewPage
+  );
+
+  loadMoreButton.dataset.page = String(Number(page) + 1);
 }

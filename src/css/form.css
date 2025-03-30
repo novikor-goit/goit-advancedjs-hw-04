@@ -25,22 +25,21 @@
         border-color: rgba(78, 117, 255, 1);
       }
     }
+  }
+}
+button {
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  padding: 8px 16px;
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(78, 117, 255, 1);
+  border-radius: 8px;
+  border: 1px solid transparent;
 
-    button {
-      font-size: 16px;
-      letter-spacing: 0.04em;
-      line-height: 1.5;
-      padding: 8px 16px;
-      color: rgba(255, 255, 255, 1);
-      background-color: rgba(78, 117, 255, 1);
-      border-radius: 8px;
-      border: 1px solid transparent;
-
-     &:hover {
-        cursor: pointer;
-        background-color: rgba(108, 140, 255, 1);
-      }
-    }
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(108, 140, 255, 1);
   }
 }
 
