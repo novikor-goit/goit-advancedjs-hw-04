@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/svg+xml" href="/goit-advancedjs-hw-04/favicon.svg" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homework 4</title>
+    <script type="module" crossorigin src="/goit-advancedjs-hw-04/index.js"></script>
+    <link rel="modulepreload" crossorigin href="/goit-advancedjs-hw-04/assets/vendor-CjwUT-lV.js">
+    <link rel="stylesheet" crossorigin href="/goit-advancedjs-hw-04/assets/vendor-Dr4k8ETB.css">
+    <link rel="stylesheet" crossorigin href="/goit-advancedjs-hw-04/assets/index-Byz3DrJA.css">
+  </head>
+
+  <body>
+    <main>
+      <section class="container search-container">
+        <form id="search-form" class="form">
+          <label>
+            <input
+              type="text"
+              required
+              name="query"
+              placeholder="Search images..."
+            />
+          </label>
+          <button type="submit">Search</button>
+        </form>
+      </section>
+      <div class="container">
+        <section>
+          <ul class="gallery" id="gallery"></ul>
+          <div>
+            <button id="load-more" hidden class="load-more">Load more</button>
+          </div>
+          <span class="loader"></span>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
