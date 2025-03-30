@@ -46,7 +46,6 @@ async function loadMore() {
       const nextPage = Number(page) + 1;
       loadMoreButton.dataset.page = String(nextPage);
 
-      console.log(nextPage, pages);
       if (nextPage > pages) {
         loadMoreButton.hidden = true;
         iziToast.info({
