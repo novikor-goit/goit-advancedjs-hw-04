@@ -1,0 +1,47 @@
+.search-container {
+  margin-top: 36px;
+
+  #search-form {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 32px;
+
+    input[name="query"] {
+      font-size: 16px;
+      letter-spacing: 0.04em;
+      line-height: 1.5;
+      width: 337px;
+      padding: 8px 16px;
+      border: 1px solid rgba(128, 128, 128, 1);
+      border-radius: 4px;
+      outline: none;
+
+      &:hover {
+        border-color: rgba(0, 0, 0, 1);
+      }
+
+      &:focus {
+        border-color: rgba(78, 117, 255, 1);
+      }
+    }
+
+    button {
+      font-size: 16px;
+      letter-spacing: 0.04em;
+      line-height: 1.5;
+      padding: 8px 16px;
+      color: rgba(255, 255, 255, 1);
+      background-color: rgba(78, 117, 255, 1);
+      border-radius: 8px;
+      border: 1px solid transparent;
+
+     &:hover {
+        cursor: pointer;
+        background-color: rgba(108, 140, 255, 1);
+      }
+    }
+  }
+}
+
+
